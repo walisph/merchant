@@ -1,0 +1,24 @@
+{
+    "name": "walisph/merchant",
+    "description": "",
+    "authors": [
+        {
+            "name": "Walis Philippines",
+            "email": "info@walis.com.ph"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "dompdf/dompdf": "0.6.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Walisph\\Merchant": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
