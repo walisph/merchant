@@ -1,6 +1,12 @@
 {
     "name": "walisph/merchant",
-    "description": "",
+    "description": "A Merchant library for Walis Applications",
+    "keywords": [
+        "laravel",
+        "dompdf",
+        "pdf",
+        "laravel-dompdf"
+    ],
     "authors": [
         {
             "name": "Walis Philippines",
@@ -19,6 +25,5 @@
         "psr-0": {
             "Walisph\\Merchant": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
