@@ -13,7 +13,7 @@ class ProductRepository extends Eloquent implements ProductInterface {
         {
             return json_decode( $value );
         }
-        return [];
+        return ['quantity' => 1];
     }
 
     public function getImagesAttribute( $value )
