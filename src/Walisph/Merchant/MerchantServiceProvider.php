@@ -33,13 +33,16 @@ class MerchantServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->registerDompdfDefinitions();
-		$this->requireConfig();
+		$this->requireDompdfConfig();
 		$this->app->bind('walis-merchant.brochure', function( $app )
 		{
 			return new Brochure( new DOMPDF, $app['config'], $app['files'], $app['view'], $app['path.public'] );
 		});
 	}
 
+	/**
+	 * Register the DOMPDF Define
+	 */
 	protected function registerDompdfDefinitions()
 	{
 		$defines = $this->app['config']->get( 'walis-merchant::dompdf.defines' ) ?: array();
@@ -52,19 +55,21 @@ class MerchantServiceProvider extends ServiceProvider {
 		$this->define( "DOMPDF_CHROOT", $this->app['path.base'] );
 		$this->define( "DOMPDF_LOG_OUTPUT_FILE", $this->app['path.storage'] . '/logs/dompdf.html' );
 	}
-	
-	protected function requireConfig()
+
+	/**
+	 * Register the DOMPDF Configuration
+	 */
+	protected function requireDompdfConfig()
 	{
-		$config_file = $this->app['config']->get( 'walis-merchant::dompdf' ) ?: $this->app['path.base'] . '/vendor/dompdf/dompdf/dompdf_config.inc.php';
+		$config_file = $this->app['path.base'] . '/vendor/dompdf/dompdf/dompdf_config.inc.php';
 		if ( file_exists( $config_file ) )
 		{
 			require_once $config_file;
 		}
 		else
 		{
-			throw new Exception(
-				"$config_file cannot be loaded, please configure correct config file (config.php: config_file)"
-			);
+			// This means you are working on workbench
+			require_once __DIR__ . '/../../../vendor/dompdf/dompdf/dompdf_config.inc.php';
 		}
 	}
 
