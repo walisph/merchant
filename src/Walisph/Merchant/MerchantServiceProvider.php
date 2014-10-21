@@ -1,6 +1,15 @@
 <?php namespace Walisph\Merchant;
 
+/**
+ * This has not been possible with the help of DOMPDF Wrapper for Laravel
+ * https://github.com/barryvdh/laravel-dompdf
+ *
+ */
+
+use DOMPDF;
+use Exception;
 use Illuminate\Support\ServiceProvider;
+use Walisph\Merchant\Brochure\Brochure;
 
 class MerchantServiceProvider extends ServiceProvider {
 
@@ -13,7 +22,7 @@ class MerchantServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('walisph/merchant', 'walis-merchant');
+		$this->package( 'walisph/merchant', 'walis-merchant' );
 	}
 
 	/**
@@ -23,16 +32,42 @@ class MerchantServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
-	}
-
-
-	protected function registerDomPDF()
-	{
-		$this->app->bind('dompdf', function( $app ){
-
+		$this->registerDompdfDefinitions();
+		$this->requireConfig();
+		$this->app->bind('walis-merchant.brochure', function( $app )
+		{
+			return new Brochure( new DOMPDF, $app['config'], $app['files'], $app['view'], $app['path.public'] );
 		});
 	}
+
+	protected function registerDompdfDefinitions()
+	{
+		$defines = $this->app['config']->get( 'walis-merchant::dompdf.defines' ) ?: array();
+		foreach ( $defines as $key => $value )
+		{
+			$this->define( $key, $value );
+		}
+		$this->define( "DOMPDF_ENABLE_REMOTE", true );
+		$this->define( "DOMPDF_ENABLE_AUTOLOAD", false );
+		$this->define( "DOMPDF_CHROOT", $this->app['path.base'] );
+		$this->define( "DOMPDF_LOG_OUTPUT_FILE", $this->app['path.storage'] . '/logs/dompdf.html' );
+	}
+	
+	protected function requireConfig()
+	{
+		$config_file = $this->app['config']->get( 'walis-merchant::dompdf' ) ?: $this->app['path.base'] . '/vendor/dompdf/dompdf/dompdf_config.inc.php';
+		if ( file_exists( $config_file ) )
+		{
+			require_once $config_file;
+		}
+		else
+		{
+			throw new Exception(
+				"$config_file cannot be loaded, please configure correct config file (config.php: config_file)"
+			);
+		}
+	}
+
 
 	/**
 	 * Get the services provided by the provider.
@@ -50,10 +85,11 @@ class MerchantServiceProvider extends ServiceProvider {
 	 * @param string $name
 	 * @param string $value
 	 */
-	protected function define($name, $value)
+	protected function define( $name, $value )
 	{
-		if (!defined($name)) {
-			define($name, $value);
+		if ( ! defined( $name ) )
+		{
+			define( $name, $value );
 		}
 	}
 
