@@ -5,6 +5,8 @@ use Walisph\Merchant\ProductInterface;
 
 class ProductRepository extends Eloquent implements ProductInterface {
 
+    protected $table = 'products';
+
     protected $fillable = [ 'name', 'description', 'data', 'images', 'price', 'manufacturer', 'brand', 'model', 'product_id' ];
 
     public function getDataAttribute( $value )
