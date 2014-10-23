@@ -16,7 +16,8 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
-        "dompdf/dompdf": "0.6.*"
+        "dompdf/dompdf": "0.6.*",
+        "walisph/map": "dev-master"
     },
     "autoload": {
         "classmap": [
