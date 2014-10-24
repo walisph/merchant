@@ -1,6 +1,7 @@
 {
     "name": "walisph/merchant",
     "description": "A Merchant library for Walis Applications",
+    "license": "MIT",
     "keywords": [
         "laravel",
         "dompdf",
