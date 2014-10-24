@@ -57,5 +57,19 @@ class ProductRepository extends Eloquent implements ProductInterface {
     {
         return $this->model;
     }
+
+    public function getData( $name, $val, $latest = true )
+    {
+        $data = ( $latest ) ? $this->latest()->get() : $this->all();
+        $response = [];
+        foreach( $data as $key => $value )
+        {
+            if( $value['data']->{$name} == $val )
+            {
+                $response[] = $value;
+            }
+        }
+        return $response;
+    }
 }
  
