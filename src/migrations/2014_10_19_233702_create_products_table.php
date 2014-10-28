@@ -19,11 +19,11 @@ class CreateProductsTable extends Migration {
 			$table->text('images');
 			$table->string('description')->nullable();
 			$table->text('data')->nullable();
-			$table->float('price')->nullable();
+			$table->decimal('price', 30, 2)->nullable();
 			$table->string('manufacturer')->nullable();
 			$table->string('brand')->nullable();
 			$table->string('model')->nullable();
-			$table->string('product_id')->nullable();
+			$table->string('type')->nullable(); // Type of Goods
 			$table->timestamps();
 		});
 	}
