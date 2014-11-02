@@ -14,5 +14,7 @@ interface ProductInterface {
 
 	public function getProductModel();
 
+	public function getType();
+
 }
  
