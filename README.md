@@ -7,7 +7,7 @@
  - Includes the DOMPDF Laravel wrapper by barryvdh. [Github](https://github.com/barryvdh/laravel-dompdf)
  - Includes the Walis Map package. [Github](https://github.com/walisph/map)
  - Includes a invoicing capability.
- - Because this package is under development all of the changelog with be viewed [here](blob/master/CHANGELOG.md)
+ - Because this package is under development all of the changelog with be viewed [here](CHANGELOG.md)
  - SO FAR, this package only works on Laravel 4
 
 ## Installation
