@@ -7,7 +7,7 @@ class ProductRepository extends Eloquent implements ProductInterface {
 
     protected $table = 'products';
 
-    protected $fillable = [ 'name', 'description', 'data', 'images', 'price', 'manufacturer', 'brand', 'model', 'product_id' ];
+    protected $fillable = [ 'name', 'description', 'data', 'images', 'price', 'manufacturer', 'brand', 'model', 'type' ];
 
     public function getDataAttribute( $value )
     {
@@ -70,6 +70,11 @@ class ProductRepository extends Eloquent implements ProductInterface {
             }
         }
         return $response;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 }
  
