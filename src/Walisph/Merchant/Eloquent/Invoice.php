@@ -5,10 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model {
 
 	protected $table = 'invoices';
+
 	protected $fillable = [ 'product_id', 'quantity', 'customer_email', 'customer_data', 'product_data' ];
 
 	/**
 	 * Customer data into serialize
+	 * using Mutator
+	 *
 	 * @param $value
 	 *
 	 * @return string
